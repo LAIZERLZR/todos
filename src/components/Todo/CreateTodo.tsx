@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import close from '../images/close.png';
 
 interface CreateTodoProps {
-  // Опять же я понятия не имею что это такое React.Dispatch<React.SetStateAction<boolean>>;
-  setModalCreateTodo: React.Dispatch<React.SetStateAction<boolean>>;
+  onModalClose: VoidFunction;
   changeState: (index: number, type: string, valueTitle: string, valueDesc: string) => void;
 }
 
