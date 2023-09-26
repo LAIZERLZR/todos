@@ -11,6 +11,11 @@ interface TodoItem {
   id: number;
 }
 
+enum ModifiedType {
+  Create = 'create'
+  
+}
+
 const Todo: React.FC = () => {
   const [modalEditTodo, setModalEditTodo] = useState<boolean>(false);
   const [modalCreateTodo, setModalCreateTodo] = useState<boolean>(false);
@@ -24,6 +29,12 @@ const Todo: React.FC = () => {
     { title: 'Заголовок 5', desc: 'Описание', state: false, id: 4 },
     { title: 'Заголовок 6', desc: 'Описание', state: true, id: 5 },
   ]);
+
+  let num = 0
+  function uniqId (){
+    num += 1
+    return Number(`${Date.now()}${num}`)
+  }
 
   const changeState = (index: number, type: string, valueTitle?: string, valueDesc?: string) => {
     let copy = [...arr];
@@ -47,12 +58,20 @@ const Todo: React.FC = () => {
     } else if (type === 'create') {
       copy = [
         ...copy,
-        { title: valueTitle || '', desc: valueDesc || '', state: false, id: copy.length },
+        { title: valueTitle || '', desc: valueDesc || '', state: false, id: uniqId() },
       ];
       setArr(copy);
       setModalCreateTodo(false);
     }
   };
+
+
+  function modifiedTodoList(type: ModifiedType) {
+    switch (type) {
+      case ModifiedType.Create:
+         handleCreateTodo()
+    }
+  }
 
   return (
     <div className="todo_container">
